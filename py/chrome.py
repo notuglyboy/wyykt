@@ -10,7 +10,7 @@ import operator
 
 browser = webdriver.Chrome()
 my_url = "http://study.163.com/message/msgList.htm"
-
+ 
 '''
 browser = webdriver.PhantomJS(executable_path=r'D:\phantomjs\bin\phantomjs.exe')
 pagescript = "var page = this;page.onResourceReceived = function(res){page.browserLog.push({'url': res.url});}"
