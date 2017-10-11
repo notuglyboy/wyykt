@@ -1,9 +1,10 @@
 chrome.contextMenus.create({
+    
     'type':'normal',
     'title':'asdasdfwsdfge',
     'contexts':['all']
 });
-
+ 
 //http://112.90.212.26/video.study.163.com/yooc-video/nos/flv/2017/08/29/
 //start
 var xhr = new XMLHttpRequest();
