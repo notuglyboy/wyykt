@@ -3,8 +3,8 @@ import time
 import operator
 
 browser = webdriver.Chrome()
-usr = 'weilsheng@163.com'
-pwd = '6991491'
+usr = 'wei'
+pwd = '6'
 
 def login():
     browser.get(url='http://study.163.com/member/login.htm')

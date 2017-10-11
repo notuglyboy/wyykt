@@ -8,8 +8,6 @@ import http.server
 import socketserver
 import operator
 
-actionLock = threading.Lock()
-receiveLock = threading.Lock()
 browser = webdriver.Chrome()
 my_url = "http://study.163.com/message/msgList.htm"
 
