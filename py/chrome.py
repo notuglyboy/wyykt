@@ -8,9 +8,10 @@ import http.server
 import socketserver
 import operator
 
+con = threading.Condition()
 browser = webdriver.Chrome()
 my_url = "http://study.163.com/message/msgList.htm"
- 
+
 '''
 browser = webdriver.PhantomJS(executable_path=r'D:\phantomjs\bin\phantomjs.exe')
 pagescript = "var page = this;page.onResourceReceived = function(res){page.browserLog.push({'url': res.url});}"
@@ -21,9 +22,9 @@ browser.execute('executePhantomScript', {'script': pagescript, 'args': []})
 class myhandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         print("do get")
-        actionLock.acquire()
-        #deal all url
-        actionLock.release()
+        if con.acquire():
+            con.notify()
+            con.release()
         
 
 def receiveUrl():
@@ -99,8 +100,11 @@ def getvedio():
             time.sleep(1)
             is_visible('//*[@id="courseLearn-inner-box"]/div/div/div[1]/div[1]/div/div[2]/div/div[2]/div[%d]' % i, 'click')
             #time.sleep(8)
-            actionLock.release()
-            actionLock.acquire()
+            
+            if con.acquire():
+                con.wait()
+                con.release()
+                
             '''
             print("get url is %s\n" % str(browser.get_log('browser')))
             urlfile.write(str(browser.get_log('browser')).encode('utf8'))
