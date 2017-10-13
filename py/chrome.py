@@ -44,9 +44,6 @@ def getcookie():
     for item in cookie:
         temp = dict(item)
         cookie_add = {}
-        '''for key, value in temp.items():
-            cookie_add[key] = value
-        browser.add_cookie(cookie_add)'''
         browser.add_cookie(temp)
     browser.refresh()
     time.sleep(3)
