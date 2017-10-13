@@ -9,7 +9,9 @@ import socketserver
 import operator
 
 con = threading.Condition()
-browser = webdriver.Chrome()
+option = webdriver.ChromeOptions()
+option.add_extension(r'D:\project\packet\Chrome\url.crx')
+browser = webdriver.Chrome(chrome_options=option)
 my_url = "http://study.163.com/message/msgList.htm"
 
 '''
@@ -98,7 +100,7 @@ def getvedio():
         for i in range(day_len):
             is_visible('//*[@id="courseLearn-inner-box"]/div/div/div[1]/div[1]/div/div[2]/div/div[@class="up j-up f-thide"]','click')
             time.sleep(1)
-            is_visible('//*[@id="courseLearn-inner-box"]/div/div/div[1]/div[1]/div/div[2]/div/div[2]/div[%d]' % i, 'click')
+            is_visible('//*[@id="courseLearn-inner-box"]/div/div/div[1]/div[1]/div/div[2]/div/div[2]/div[%s]' % str(i+1), 'click')
             #time.sleep(8)
             
             if con.acquire():
@@ -115,8 +117,9 @@ def getvedio():
     urlfile.close()    
             
 if __name__ == "__main__":
-    t = threading.Thread(target=receiveUrl)
-    t.start()
+    
+    #t = threading.Thread(target=receiveUrl)
+    #t.start()
     getcookie()
     getvedio()
     
