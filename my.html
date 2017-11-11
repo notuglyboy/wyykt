@@ -1,0 +1,41 @@
+
+<ul>
+    <li>
+        <div>
+            <h3 id="title", >Title</h3>
+            <img id="im", src="file://d:/360.png", width=100px, height=100px, onclick="imgClick(this)"></img><br>
+            <p>content</p>
+        </div>
+    </li>
+    <li>
+        <div>
+            <h3 id="title", >Title</h3>
+            <img id="im2", src="file://d:/360.png", width=100px, height=100px, onclick="imgClick(this)"></img><br>
+            <p>content</p>
+        </div>
+    </li>
+    
+    
+</ul>
+
+
+
+
+<script>
+                   
+                function imgClick(obj){
+                    img= document.getElementById(obj.id);
+                    document.getElementById("title").innerHTML = "sss";
+                    if(img.height == 200 && img.width == 200)
+                    {
+                        img.height = 50;
+                        img.width = 50;
+                    }
+                    else
+                    {
+                        img.height = 200;
+                        img.width = 200;
+                    }
+                    
+                }
+</script>
