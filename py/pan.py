@@ -8,8 +8,9 @@ import operator
 import re
 import os, sys
 import base64
-from docopt import docopt
 import argparse
+import pytesseract
+
 parser = argparse.ArgumentParser(description="your script description")
 parser.add_argument('--cookie', '-c',  type = str)
 parser.add_argument('--img', '-i',  type = str)
@@ -39,7 +40,7 @@ def getcookie():
 def login():
     getcookie()
     time.sleep(2)
-	
+    
 def is_visible(locator, type='', msg="", back=False, loop=False):
     #while True:
     try:
@@ -129,8 +130,7 @@ def openFile_get(filename):
                 os.rename(path, dirName + newfianeme + '.txt')
             except FileExistsError:
                 pass
-            
-    
+
 def listdir():
     for file in os.listdir(dirName):
         try:
@@ -138,8 +138,34 @@ def listdir():
         except:
             pass
         openFile_get(file)
-		
-if __name__ == "__main__":	
+
+import pytesseract
+from PIL import Image
+def getImgText():
+    for z in os.listdir(dirName):
+        img = z.replace('.txt', '')
+        p = imgPath + img + '.png'
+        text = pytesseract.image_to_string(Image.open(p), lang='chi_sim')
+        os.rename(dirName + z, text + '.txt')
+
+def get_file_content(filePath):
+    with open(filePath, 'rb') as fp:
+        return fp.read()
+
+def getImgTextByBaidu():
+    APP_ID = '16049983'
+    API_KEY = 'POGWaExnQACjldQxIWsQZ3lR'
+    SECRET_KEY = 'f4xsROApOt0yoGklD3CeUzDDAVmyPCut'
+    client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+    for z in os.listdir(dirName):
+        img = z.replace('.txt', '')
+        p = imgPath + img + '.png'
+        img = get_file_content(p)
+        result = client.basicGeneral(img)
+        text = result['words_result'][0]['words']
+        os.rename(dirName + z, text + '.txt')
+
+if __name__ == "__main__":  
     if args.cookie:
         print(args.cookie)
         cookiname =  r'F:\zhong\localcookie%s' % (args.cookie) 
@@ -148,3 +174,4 @@ if __name__ == "__main__":
     login()
     time.sleep(2)
     listdir()
+    getImgTextByBaidu()
