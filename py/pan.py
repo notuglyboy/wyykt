@@ -152,6 +152,7 @@ def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
         return fp.read()
 
+
 def getImgTextByBaidu():
     APP_ID = '16049983'
     API_KEY = 'POGWaExnQACjldQxIWsQZ3lR'
